@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity
     // non-zero drift.
     private static final float VALUE_DRIFT = 0.05f;
 
+    //methode onCreate untuk mendapatkan layanan SensorManager
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
