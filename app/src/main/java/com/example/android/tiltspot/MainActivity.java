@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    //method onStop untuk unregister
     @Override
     protected void onStop() {
         super.onStop();
