@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity
         mTextSensorPitch = (TextView) findViewById(R.id.value_pitch);
         label2 = (TextView) findViewById(R.id.label_roll);
         mTextSensorRoll = (TextView) findViewById(R.id.value_roll);
+        //inisialisasi tampilan gambar
         mugmTop = (ImageView) findViewById(R.id.ugm_top);
         mugmBottom = (ImageView) findViewById(R.id.ugm_bottom);
         mugmLeft = (ImageView) findViewById(R.id.ugm_left);
