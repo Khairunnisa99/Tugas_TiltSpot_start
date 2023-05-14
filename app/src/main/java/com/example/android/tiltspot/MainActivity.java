@@ -270,6 +270,7 @@ public class MainActivity extends AppCompatActivity
         mugmLeft.setAlpha(0f);
         mugmRight.setAlpha(0f);
 
+        //Perbarui nilai alfa untuk tempat yang sesuai dengan nilai pitch and rol
         if (pitch > 0) {
             mugmBottom.setAlpha(pitch);
         } else {
