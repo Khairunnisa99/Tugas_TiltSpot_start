@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity
     private TextView mTextSensorPitch;
     private TextView mTextSensorRoll;
 
+    //Tambahkan variabel anggota di bagian atas kelas untuk setiap imageview
     private ImageView mugmTop;
     private ImageView mugmBottom;
     private ImageView mugmLeft;
