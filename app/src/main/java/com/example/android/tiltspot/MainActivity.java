@@ -248,6 +248,7 @@ public class MainActivity extends AppCompatActivity
         float pitch = orientationValues[1];
         float roll = orientationValues[2];
 
+        //Setel ulang nilai pitch atau roll yang mendekati 0
         if (Math.abs(pitch) < VALUE_DRIFT) {
             pitch = 0;
         }
