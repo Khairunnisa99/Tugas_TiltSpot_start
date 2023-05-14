@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity
     private Sensor mSensorAccelerometer;
     private Sensor mSensorMagnetometer;
 
+    //variabel untuk menyimpan salinan data akselerometer dan magnetometer
+    private float[] mAccelerometerData = new float[3];
+    private float[] mMagnetometerData = new float[3];
+
     // TextViews to display current sensor values.
     private TextView mTextSensorAzimuth;
     private TextView mTextSensorPitch;
