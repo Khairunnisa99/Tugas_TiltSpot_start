@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity
         mTextSensorPitch = (TextView) findViewById(R.id.value_pitch);
         label2 = (TextView) findViewById(R.id.label_roll);
         mTextSensorRoll = (TextView) findViewById(R.id.value_roll);
-        mSpotTop = (ImageView) findViewById(R.id.spot_top);
-        mSpotBottom = (ImageView) findViewById(R.id.spot_bottom);
-        mSpotLeft = (ImageView) findViewById(R.id.spot_left);
-        mSpotRight = (ImageView) findViewById(R.id.spot_right);
+//        mSpotTop = (ImageView) findViewById(R.id.spot_top);
+//        mSpotBottom = (ImageView) findViewById(R.id.spot_bottom);
+//        mSpotLeft = (ImageView) findViewById(R.id.spot_left);
+//        mSpotRight = (ImageView) findViewById(R.id.spot_right);
         save = (Button) findViewById(R.id.save);
 
 
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
                 Sensor.TYPE_MAGNETIC_FIELD);
 
         WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-        mDisplay = wm.getDefaultDisplay();
+//        mDisplay = wm.getDefaultDisplay();
 
         //melakukan sesuatu saat tombol diklik
         save.setOnClickListener(new View.OnClickListener() {
