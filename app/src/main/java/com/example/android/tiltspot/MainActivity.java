@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Lock the orientation to portrait (for now)
+        // mengunci aktivitas dalam mode potret
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         mTextSensorAzimuth = (TextView) findViewById(R.id.value_azimuth);
