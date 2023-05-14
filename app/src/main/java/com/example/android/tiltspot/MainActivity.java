@@ -112,6 +112,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+        //mendapatkan jenis sensor dari sensorEvent
+        int sensorType = sensorEvent.sensor.getType();
     }
 
     /**
