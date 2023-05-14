@@ -129,6 +129,11 @@ public class MainActivity extends AppCompatActivity
         float[] rotationMatrix = new float[9];
         boolean rotationOK = SensorManager.getRotationMatrix(rotationMatrix,
                 null, mAccelerometerData, mMagnetometerData);
+        //mendapatkan sudut orientasi dari rotation matrix
+        float orientationValues[] = new float[3];
+        if (rotationOK) {
+            SensorManager.getOrientation(rotationMatrix, orientationValues);
+        }
     }
 
     /**
