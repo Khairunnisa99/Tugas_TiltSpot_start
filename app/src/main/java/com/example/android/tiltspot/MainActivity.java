@@ -125,6 +125,10 @@ public class MainActivity extends AppCompatActivity
             default:
                 return;
         }
+        //menambahkan method untuk menghasilkan rotation matrix
+        float[] rotationMatrix = new float[9];
+        boolean rotationOK = SensorManager.getRotationMatrix(rotationMatrix,
+                null, mAccelerometerData, mMagnetometerData);
     }
 
     /**
