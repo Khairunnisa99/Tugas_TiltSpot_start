@@ -114,6 +114,17 @@ public class MainActivity extends AppCompatActivity
     public void onSensorChanged(SensorEvent sensorEvent) {
         //mendapatkan jenis sensor dari sensorEvent
         int sensorType = sensorEvent.sensor.getType();
+        //memproses perubahan nilai pada sensor berdasarkan tipe sensor yang terdeteksi
+        switch (sensorType) {
+            case Sensor.TYPE_ACCELEROMETER:
+                mAccelerometerData = sensorEvent.values.clone();
+                break;
+            case Sensor.TYPE_MAGNETIC_FIELD:
+                mMagnetometerData = sensorEvent.values.clone();
+                break;
+            default:
+                return;
+        }
     }
 
     /**
