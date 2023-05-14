@@ -15,7 +15,7 @@ limitations under the License. -->
     <string name="app_name">TiltSpot</string>
 
     <!-- Text view labels for orientation data -->
-    <string name="label_azimuth_string">Azmiuth</string>
+    <string name="label_azimuth_string">Azimuth</string>
     <string name="label_pitch_string">Pitch</string>
     <string name="label_roll_string">Roll</string>
 

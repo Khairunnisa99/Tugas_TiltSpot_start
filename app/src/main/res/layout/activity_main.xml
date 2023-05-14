@@ -37,7 +37,7 @@ limitations under the License. -->
             android:id="@+id/label_azimuth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_azimuth_string"
+            android:text="Azimuth"
             style="@style/Label"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/label_group"/>
@@ -90,8 +90,64 @@ limitations under the License. -->
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/value_pitch"/>
+
     </android.support.constraint.ConstraintLayout>
-<!--    menambah button save-->
+
+    <!-- Four spot drawables for the cardinal directions on the device.
+       The drawables are 100% black by default (in the XML). Alpha sets the
+       "tint" to shades of gray. Setting the alpha to 0 here makes them
+       invisible. -->
+
+    <ImageView
+        android:id="@+id/ugm_top"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="8dp"
+        android:alpha="5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ugm"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/ugm_bottom"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:layout_marginBottom="8dp"
+        android:alpha="5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/ugm"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/ugm_right"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:alpha="5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ugm"
+        tools:ignore="ContentDescription"/>
+
+    <ImageView
+        android:id="@+id/ugm_left"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:alpha="5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ugm"
+        tools:ignore="ContentDescription" />
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/label1_group"
         android:layout_width="170dp"

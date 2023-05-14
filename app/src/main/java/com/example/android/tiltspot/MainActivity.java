@@ -24,6 +24,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
+import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -57,6 +59,11 @@ public class MainActivity extends AppCompatActivity
     private TextView mTextSensorPitch;
     private TextView mTextSensorRoll;
 
+    private ImageView mugmTop;
+    private ImageView mugmBottom;
+    private ImageView mugmLeft;
+    private ImageView mugmRight;
+    private Display mDisplay;
     private TextView label;
 
     private TextView label1;
@@ -77,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         // mengunci aktivitas dalam mode potret
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         label = (TextView) findViewById(R.id.label_azimuth);
         mTextSensorAzimuth = (TextView) findViewById(R.id.value_azimuth);
@@ -85,10 +92,10 @@ public class MainActivity extends AppCompatActivity
         mTextSensorPitch = (TextView) findViewById(R.id.value_pitch);
         label2 = (TextView) findViewById(R.id.label_roll);
         mTextSensorRoll = (TextView) findViewById(R.id.value_roll);
-//        mSpotTop = (ImageView) findViewById(R.id.spot_top);
-//        mSpotBottom = (ImageView) findViewById(R.id.spot_bottom);
-//        mSpotLeft = (ImageView) findViewById(R.id.spot_left);
-//        mSpotRight = (ImageView) findViewById(R.id.spot_right);
+        mugmTop = (ImageView) findViewById(R.id.ugm_top);
+        mugmBottom = (ImageView) findViewById(R.id.ugm_bottom);
+        mugmLeft = (ImageView) findViewById(R.id.ugm_left);
+        mugmRight = (ImageView) findViewById(R.id.ugm_right);
         save = (Button) findViewById(R.id.save);
 
 
@@ -103,7 +110,7 @@ public class MainActivity extends AppCompatActivity
                 Sensor.TYPE_MAGNETIC_FIELD);
 
         WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-//        mDisplay = wm.getDefaultDisplay();
+        mDisplay = wm.getDefaultDisplay();
 
         //melakukan sesuatu saat tombol diklik
         save.setOnClickListener(new View.OnClickListener() {
@@ -208,15 +215,44 @@ public class MainActivity extends AppCompatActivity
         float[] rotationMatrix = new float[9];
         boolean rotationOK = SensorManager.getRotationMatrix(rotationMatrix,
                 null, mAccelerometerData, mMagnetometerData);
+        float[] rotationMatrixAdjusted = new float[9];
+        switch (mDisplay.getRotation()) {
+            case Surface.ROTATION_0:
+                rotationMatrixAdjusted = rotationMatrix.clone();
+                break;
+            case Surface.ROTATION_90:
+                SensorManager.remapCoordinateSystem(rotationMatrix,
+                        SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X,
+                        rotationMatrixAdjusted);
+                break;
+            case Surface.ROTATION_180:
+                SensorManager.remapCoordinateSystem(rotationMatrix,
+                        SensorManager.AXIS_MINUS_X, SensorManager.AXIS_MINUS_Y,
+                        rotationMatrixAdjusted);
+                break;
+            case Surface.ROTATION_270:
+                SensorManager.remapCoordinateSystem(rotationMatrix,
+                        SensorManager.AXIS_MINUS_Y, SensorManager.AXIS_X,
+                        rotationMatrixAdjusted);
+                break;
+        }
         //mendapatkan sudut orientasi dari rotation matrix
         float orientationValues[] = new float[3];
         if (rotationOK) {
-            SensorManager.getOrientation(rotationMatrix, orientationValues);
+            SensorManager.getOrientation(rotationMatrixAdjusted, orientationValues);
         }
         //variabel untuk azimuth, pitch, dan roll, untuk menampung setiap komponen orientationValues
         float azimuth = orientationValues[0];
         float pitch = orientationValues[1];
         float roll = orientationValues[2];
+
+        if (Math.abs(pitch) < VALUE_DRIFT) {
+            pitch = 0;
+        }
+        if (Math.abs(roll) < VALUE_DRIFT) {
+            roll = 0;
+        }
+
         //memberikan nilai variabel
         mTextSensorAzimuth.setText(getResources().getString(
                 R.string.value_format, azimuth));
@@ -224,6 +260,23 @@ public class MainActivity extends AppCompatActivity
                 R.string.value_format, pitch));
         mTextSensorRoll.setText(getResources().getString(
                 R.string.value_format, roll));
+
+        mugmTop.setAlpha(0f);
+        mugmBottom.setAlpha(0f);
+        mugmLeft.setAlpha(0f);
+        mugmRight.setAlpha(0f);
+
+        if (pitch > 0) {
+            mugmBottom.setAlpha(pitch);
+        } else {
+            mugmTop.setAlpha(Math.abs(pitch));
+        }
+        if (roll > 0) {
+            mugmLeft.setAlpha(roll);
+        } else {
+            mugmRight.setAlpha(Math.abs(roll));
+        }
+
     }
 
     /**
