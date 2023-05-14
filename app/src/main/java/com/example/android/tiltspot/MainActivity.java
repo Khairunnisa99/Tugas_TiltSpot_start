@@ -24,7 +24,18 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity
         implements SensorEventListener {
@@ -46,6 +57,14 @@ public class MainActivity extends AppCompatActivity
     private TextView mTextSensorPitch;
     private TextView mTextSensorRoll;
 
+    private TextView label;
+
+    private TextView label1;
+
+    private TextView label2;
+
+    Button save;
+
     // Very small values for the accelerometer (on all three axes) should
     // be interpreted as 0. This value is the amount of acceptable
     // non-zero drift.
@@ -60,9 +79,18 @@ public class MainActivity extends AppCompatActivity
         // mengunci aktivitas dalam mode potret
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        label = (TextView) findViewById(R.id.label_azimuth);
         mTextSensorAzimuth = (TextView) findViewById(R.id.value_azimuth);
+        label1 = (TextView) findViewById(R.id.label_pitch);
         mTextSensorPitch = (TextView) findViewById(R.id.value_pitch);
+        label2 = (TextView) findViewById(R.id.label_roll);
         mTextSensorRoll = (TextView) findViewById(R.id.value_roll);
+        mSpotTop = (ImageView) findViewById(R.id.spot_top);
+        mSpotBottom = (ImageView) findViewById(R.id.spot_bottom);
+        mSpotLeft = (ImageView) findViewById(R.id.spot_left);
+        mSpotRight = (ImageView) findViewById(R.id.spot_right);
+        save = (Button) findViewById(R.id.save);
+
 
         // Get accelerometer and magnetometer sensors from the sensor manager.
         // The getDefaultSensor() method returns null if the sensor
@@ -73,8 +101,59 @@ public class MainActivity extends AppCompatActivity
                 Sensor.TYPE_ACCELEROMETER);
         mSensorMagnetometer = mSensorManager.getDefaultSensor(
                 Sensor.TYPE_MAGNETIC_FIELD);
+
+        WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+        mDisplay = wm.getDefaultDisplay();
+
+        //melakukan sesuatu saat tombol diklik
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!mTextSensorAzimuth.getText().toString().isEmpty()) {
+                    File file = new File(MainActivity.this.getFilesDir(), "text");
+                    if (!file.exists()) {
+                        file.mkdir();
+                    }
+                    try {
+                        File gpxfile = new File(file, "sample");
+                        FileWriter writer = new FileWriter(gpxfile);
+
+                        writer.append(label.getText().toString() + "\t:\t");
+                        writer.append(mTextSensorAzimuth.getText().toString() + "\n");
+                        writer.append(label1.getText().toString() + "\t:\t");
+                        writer.append(mTextSensorPitch.getText().toString() + "\n");
+                        writer.append(label2.getText().toString() + "\t:\t");
+                        writer.append(mTextSensorRoll.getText().toString() + "\n");
+
+                        writer.flush();
+                        writer.close();
+
+                        Toast.makeText(getBaseContext(), "File saved successfully!",
+                                Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                    }
+                }
+            }
+        });
     }
 
+    //membaca file
+    private String readFile() {
+        File fileEvents = new File(MainActivity.this.getFilesDir() + "/text/sample");
+        StringBuilder text = new StringBuilder();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fileEvents));
+            String line;
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append(' ');
+            }
+            br.close();
+        } catch (IOException e) {
+        }
+        String result = text.toString();
+        return result;
+    }
     /**
      * Listeners for the sensors are registered in this callback so that
      * they can be unregistered in onStop().
