@@ -134,6 +134,10 @@ public class MainActivity extends AppCompatActivity
         if (rotationOK) {
             SensorManager.getOrientation(rotationMatrix, orientationValues);
         }
+        //variabel untuk azimuth, pitch, dan roll, untuk menampung setiap komponen orientationValues
+        float azimuth = orientationValues[0];
+        float pitch = orientationValues[1];
+        float roll = orientationValues[2];
     }
 
     /**
