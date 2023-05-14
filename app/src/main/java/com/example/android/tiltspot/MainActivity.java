@@ -264,6 +264,7 @@ public class MainActivity extends AppCompatActivity
         mTextSensorRoll.setText(getResources().getString(
                 R.string.value_format, roll));
 
+        //menyetel alfa semua titik ke 0
         mugmTop.setAlpha(0f);
         mugmBottom.setAlpha(0f);
         mugmLeft.setAlpha(0f);
